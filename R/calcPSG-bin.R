@@ -1,7 +1,6 @@
 #' Calculate plume direction and spread using binned data and natural scale
 #' @param dat Data table, with names obtained from GMAP data output as of 2018-Aug
 #' @return object of class "lm" with plume fit, has the side effect of adding column theta to dat
-#' @keywords
 #' @export
 #' @examples
 #' calcPSG.bin(dat)

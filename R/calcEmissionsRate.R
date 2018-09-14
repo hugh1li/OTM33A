@@ -1,12 +1,12 @@
-#' Calculate emissions rates from data.table and gaussing peak value estimated from calcLyProjection
+#' Calculate emissions rates from data.table and gaussian peak value estimated from calcLyProjection
 #' @param
 #' dat: Data table, with names obtained from GMAP data output as of 2018-Aug
+#'
 #' gauss.peak:  Peak of Gaussian fit from calcLyProjection
-#' @return list containing information from emissions rate calculation
-#' @keywords
+#' @return vector of length 3 containing information from emissions rate calculation
 #' @export
 #' @examples
-#' read.OTM33A(file.name,numskip=33)
+#' calcEmissionsRate(file.name,numskip=33)
 
 calcEmissionsRate <- function(dat,gauss.peak) {
   # check to make sure that filter from calcLY is applied at this step

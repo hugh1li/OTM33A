@@ -1,8 +1,7 @@
-#' Calculate background as the average of the lowest 5 percent of data from data set
+#' Calculate background as the average of the lowest five percent of data from data set
 #' @param
 #' dat:  Data table, with names obtained from GMAP data output as of 2018-Aug
 #' @return None, but has the side effect of adding column CH4 and attribute bg to dat
-#' @keywords
 #' @export
 #' @examples
 #' subtract.background(dat)

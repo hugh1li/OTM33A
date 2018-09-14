@@ -1,10 +1,10 @@
 #' Calculate plume direction and spread using binned data and natural scale
 #' @param
 #' dat: Data table, with names obtained from GMAP data output as of 2018-Aug
+#'
 #' wdfilt:  number in degrees, used to exclude data from fit that are within the filter
 #' @return object of class "lm" with plume fit,
 #' has the side effect of adding columns thetabin, theta.filter, Ly to dat
-#' @keywords
 #' @export
 #' @examples
 #' calcLyProjection.bin(dat)

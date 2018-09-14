@@ -8,6 +8,7 @@ calcLyProjection.bin(dat, wdfilt = 90, binwidth = 2, plot = TRUE)
 }
 \arguments{
 \item{dat:}{Data table, with names obtained from GMAP data output as of 2018-Aug
+
 wdfilt:  number in degrees, used to exclude data from fit that are within the filter}
 }
 \value{

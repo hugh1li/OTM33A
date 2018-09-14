@@ -1,7 +1,6 @@
 #' Calculate plume direction and spread using indiviudal data on the natural scale
 #' @param dat Data table, with names obtained from GMAP data output as of 2018-Aug
 #' @return object of class "lm" from plume fit
-#' @keywords
 #' @export
 #' @examples
 #' calcPSG.ind(dat)
@@ -33,4 +32,3 @@ calcPSG.ind <- function(dat, plot = TRUE) {
   }
   return(wdfit)
 }
-

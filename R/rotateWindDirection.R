@@ -1,7 +1,6 @@
 #' Calculate wind direction and caclulate wd3, the rotated wind direction variable
 #' @param dat Data table, with names obtained from GMAP data output as of 2018-Aug
 #' @return void Columns are added to dat data table
-#' @keywords
 #' @export
 #' @examples
 #' rotateWindDirection(dat)

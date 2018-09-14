@@ -1,7 +1,6 @@
 #' Calculate plume direction and spread using indiviudal data and a lognormal fit
 #' @param dat Data table, with names obtained from GMAP data output as of 2018-Aug
 #' @return object of class "lm" with plume fit
-#' @keywords
 #' @export
 #' @examples
 #' calcPSG.ind.log(dat)

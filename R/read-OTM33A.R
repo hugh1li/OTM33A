@@ -1,7 +1,6 @@
 #' Read data from text file and return data.table
 #' @param dat Data table, with names obtained from GMAP data output as of 2018-Aug
 #' @return data.table containing data contained in file.name, with headers and attributes read from the file
-#' @keywords
 #' @export
 #' @examples
 #' read.OTM33A(file.name,numskip=33)

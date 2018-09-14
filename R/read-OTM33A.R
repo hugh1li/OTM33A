@@ -7,6 +7,7 @@
 #' read.OTM33A(file.name,numskip=33)
 
 read.OTM33A <- function(file.name, numskip=33) {
+  # save mast heading
   header = data.table(read.table(file.name,skip=0,nrows =numskip-2,sep="\t"))
   rawdat <- data.table(read.table(file.name, header=T, sep="\t",skip=numskip))
   DateTime = as.POSIXct(strptime(as.character(rawdat$Time),format = "%m/%d/%y %H:%M:%S"))

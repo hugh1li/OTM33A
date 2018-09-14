@@ -1,0 +1,134 @@
+Date
+Time
+CO2
+CH4
+X3DS.U
+X3DS.V
+X3DS.W
+X3DS.2D.Speed
+X3DS.3D.Speed
+X3DS.Azimuth
+X3DS.Elevation
+X3DS.SoS
+X3DS.Sonic.Temp
+X3DS.Error.Code
+GPS.Track
+GPS.Ground.Speed
+GPS.Time
+GPS.Latitude
+GPS.Longitude
+GPS.DoP
+WS.Wind.Speed 
+WS.Wind.Direction
+WS.Temperature
+WS.Rel.Humidity
+WS.Bar.Pressure
+WS.Compass.Heading
+BEN
+TOL
+ETB
+XYO
+XYM
+XYP
+SO2
+STY
+FOR
+NH3
+NO
+NO2
+O3
+Cell.Pressure
+Cell.Temperature
+SUMMA.Pressure
+VOC
+AirMar.Wind.Speed
+AirMar.Wind.Direction
+AirMar.Air.Temp
+AirMar.Rel.Humidity
+AirMar.Barometer
+AirMar.Heading
+AirMar.Ground.Speed
+AirMar.Latitude
+AirMar.Longitude
+Cerex-1-3 Butadiene
+Cerex-Acetaldehyde
+Cerex-Ammonia
+Cerex-Benzene
+Cerex-Carbon Disulfide
+Cerex-Chlorine
+Cerex-Chlorine Dioxide
+Cerex-Ethylamine
+Cerex-Ethylbenzene
+Cerex-Formaldehyde
+Cerex-Hydrogen Sulfide
+Cerex-Isoprene
+Cerex-Mercury
+Cerex-Naphthalene
+Cerex-Nitric Oxide
+Cerex-Nitrogen Dioxide
+Cerex-Oxygen
+Cerex-Ozone
+Cerex-Phenol
+Cerex-Pyridine
+Cerex-Styrene
+Cerex-Sulfur Dioxide
+Cerex-Toluene
+Cerex-o-Xylene
+Cerex-m-Xylene
+Cerex-p-Xylene
+Tiger-VOC
+Cerex_MaxSigStrength
+Cerex_FileNumber
+Cerex-1-3 Butadiene_MDL(ppb)
+Cerex-1-3 Butadiene_R2
+Cerex-Acetaldehyde_MDL(ppb)
+Cerex-Acetaldehyde_R2
+Cerex-Ammonia_MDL(ppb)
+Cerex-Ammonia_R2
+Cerex-Benzene_MDL(ppb)
+Cerex-Benzene_R2
+Cerex-Carbon Disulfide_MDL(ppb)
+Cerex-Carbon Disulfide_R2
+Cerex-Chlorine_MDL(ppb)
+Cerex-Chlorine_R2
+Cerex-Chlorine Dioxide_MDL(ppb)
+Cerex-Chlorine Dioxide_R2
+Cerex-Ethylamine_MDL(ppb)
+Cerex-Ethylamine_R2
+Cerex-Ethylbenzene_MDL(ppb)
+Cerex-Ethylbenzene_R2
+Cerex-Formaldehyde_MDL(ppb)
+Cerex-Formaldehyde_R2
+Cerex-Hydrogen Sulfide_MDL(ppb)
+Cerex-Hydrogen Sulfide_R2
+Cerex-Isoprene_MDL(ppb)
+Cerex-Isoprene_R2
+Cerex-Mercury_MDL(ppb)
+Cerex-Mercury_R2
+Cerex-Naphthalene_MDL(ppb)
+Cerex-Naphthalene_R2
+Cerex-Nitric Oxide_MDL(ppb)
+Cerex-Nitric Oxide_R2
+Cerex-Nitrogen Dioxide_MDL(ppb)
+Cerex-Nitrogen Dioxide_R2
+Cerex-Oxygen_MDL(ppb)
+Cerex-Oxygen_R2
+Cerex-Ozone_MDL(ppb)
+Cerex-Ozone_R2
+Cerex-Phenol_MDL(ppb)
+Cerex-Phenol_R2
+Cerex-Pyridine_MDL(ppb)
+Cerex-Pyridine_R2
+Cerex-Styrene_MDL(ppb)
+Cerex-Styrene_R2
+Cerex-Sulfur Dioxide_MDL(ppb)
+Cerex-Sulfur Dioxide_R2
+Cerex-Toluene_MDL(ppb)
+Cerex-Toluene_R2
+Cerex-o-Xylene_MDL(ppb)
+Cerex-o-Xylene_R2
+Cerex-m-Xylene_MDL(ppb)
+Cerex-m-Xylene_R2
+Cerex-p-Xylene_MDL(ppb)
+Cerex-p-Xylene_R2
+MPOD-PID

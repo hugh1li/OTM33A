@@ -58,5 +58,5 @@ calcEmissionsRate <- function(dat,gauss.peak) {
   a1_gperm3 <- gauss.peak*opt*rt1rp1*Pbar/Tbar
   # Calculate PSG
   PSG <- 2*pi*a1_gperm3*Ubar*pgsigmay*pgsigmaz
-  return(PSG)
+  return(list(PSG=PSG,PGI=PGI,Ubar=Ubar))
 }

@@ -9,6 +9,7 @@
 #' read.OTM33A(file.name,numskip=33)
 
 calcEmissionsRate <- function(dat,gauss.peak) {
+  # check to make sure that filter from calcLY is applied at this step
   # Input:  dat:  data set,
   #         gauss.peak:  gaussian value at plume center estimated by calcLyProjection
   # Output:  calculated emissions in g/m^3

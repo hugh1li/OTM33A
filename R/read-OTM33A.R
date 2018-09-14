@@ -9,11 +9,13 @@
 read.OTM33A <- function(file.name, numskip=33) {
   # save mast heading
   header = data.table(read.table(file.name,skip=0,nrows =numskip-2,sep="\t"))
+  setnames(header,names(header),c("Name","Value"))
   rawdat <- data.table(read.table(file.name, header=T, sep="\t",skip=numskip))
   DateTime = as.POSIXct(strptime(as.character(rawdat$Time),format = "%m/%d/%y %H:%M:%S"))
   rawdat[,DateTime := DateTime]
     # Only keep rows with a timestamp (removes extra rows at end of file)
   rawdat[,sub := !is.na(rawdat$Time)]
-  setattr(rawdat,"distance",header[V1=="Distance to Source",as.numeric(as.character(V2))])
+  setattr(rawdat,"distance",header[Name=="Distance to Source",as.numeric(as.character(Value))])
+  setattr(rawdat,"heading",header[Name=="Mast Heading",as.numeric(as.character(Value))])
   rawdat
 }

@@ -22,10 +22,11 @@ calcPSG.bin <- function(dat, binwidth=2, wdfilt=180, plot = TRUE) {
   #                             center=bins+binwidth/2), !is.na(wdbin))
   # mod
   dat[,time_int := seq(1, .N, 1)]
+  dat[,wd.filter := ifelse(wd3<wdfilt & wd3>-wdfilt,TRUE,FALSE)]
 
   # Aggregate data by wd bins
   dat[,wdbin := cut(dat$wd3, bins, right=FALSE)]
-  ch4.wdbin <- dat[,list(CH4 = mean(CH4),n = .N,wd3=mean(wd3)),wdbin][order(wdbin)]
+  ch4.wdbin <- dat[wd.filter=TRUE,list(CH4 = mean(CH4),n = .N,wd3=mean(wd3)),wdbin][order(wdbin)]
 
   # Set initial values for gaussian fit estimation
   mu0 <- ch4.wdbin[which.max(CH4), wd3]

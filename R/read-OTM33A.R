@@ -9,7 +9,8 @@ read.OTM33A <- function(file.name, numskip=33) {
   # save mast heading
   header = data.table(read.table(file.name,skip=0,nrows =numskip-2,sep="\t"))
   setnames(header,names(header),c("Name","Value"))
-  rawdat <- data.table(read.table(file.name, header=T, sep="\t",skip=numskip))
+  rawdat <- read.table(file.name, header=T, sep="\t",skip=numskip)
+  rawdat <- data.table(rawdat)
   DateTime = as.POSIXct(strptime(as.character(rawdat$Time),format = "%m/%d/%y %H:%M:%S"))
   rawdat[,DateTime := DateTime]
     # Only keep rows with a timestamp (removes extra rows at end of file)

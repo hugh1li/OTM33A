@@ -4,7 +4,7 @@
 \alias{calcEmissionsRate}
 \title{Calculate emissions rates from data.table and gaussian peak value estimated from calcLyProjection}
 \usage{
-calcEmissionsRate(dat, gauss.peak)
+calcEmissionsRate(dat)
 }
 \arguments{
 \item{dat:}{Data table, with names obtained from GMAP data output as of 2018-Aug
@@ -18,5 +18,5 @@ vector of length 3 containing information from emissions rate calculation
 Calculate emissions rates from data.table and gaussian peak value estimated from calcLyProjection
 }
 \examples{
-calcEmissionsRate(file.name,numskip=33)
+calcEmissionsRate(dat)
 }

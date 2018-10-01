@@ -1,0 +1,17 @@
+---
+title: "OTM33A v1.3 changes"
+author: "Brad Venner"
+date: "September 28, 2018"
+output: html_document
+---
+
+To calculate PGstdevi, calcPSG uses the varible wd2_raw, which is derived from the met station data.  It would be better to use the variable wd3_raw, which is derived from the sonic anenometer.  The met station data lags behind the sonic anenometer by about 4 seconds, which is roughly the same lag time as the chemical analysis.  Additionally, there appears to be a difference between the met station and the sonic anenomoter directions, and this difference varies from run to run.  
+
+The calcPSG script uses this variable once, calculating the standard deviation using the "Yamartino Method".  The difference in the standard deviations between the wd2_raw and wd3_raw variables are relatively small and do not vary systematically.
+
+
+```{r echo=FALSE}
+library(data.table)
+rbindlist(sapply(x,function(y){y[sub==TRUE&theta.filter==TRUE,list(sd.wd3.yam(WS.Wind.Direction),sd.wd3.yam(X3DS.Azimuth))]},simplify=FALSE))[,plot(V1~V2)]
+```
+Although this difference does not substantially change the calculations for 18 of the 20 data sets in the ORD test data, it did change the calculated stability class for the other two samples.    

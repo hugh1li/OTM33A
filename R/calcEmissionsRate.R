@@ -6,9 +6,9 @@
 #' @return vector of length 3 containing information from emissions rate calculation
 #' @export
 #' @examples
-#' calcEmissionsRate(file.name,numskip=33)
+#' calcEmissionsRate(dat)
 
-calcEmissionsRate <- function(dat,gauss.peak) {
+calcEmissionsRate <- function(dat) {
   # check to make sure that filter from calcLY is applied at this step
   # Input:  dat:  data set,
   #         gauss.peak:  gaussian value at plume center estimated by calcLyProjection
@@ -31,23 +31,23 @@ calcEmissionsRate <- function(dat,gauss.peak) {
   # temperature <- "X3DS.Sonic.Temp"
   # pressure <- "AirMar.Barometer..mBar."
   # ws3w <- "X3DS.W"
-  Tbar <- dat[theta.filter==TRUE,mean(X3DS.Sonic.Temp)]+273.15
-  Pbar <- dat[theta.filter==TRUE,mean(AirMar.Barometer..mBar.)]
-  Ubar <- dat[theta.filter==TRUE,mean(ws3)]
-  ws_sd <- dat[theta.filter==TRUE,sd(ws3)]
+  Tbar <- dat[sub==TRUE & theta.filter==TRUE,mean(X3DS.Sonic.Temp)]+273.15
+  Pbar <- dat[sub==TRUE & theta.filter==TRUE,mean(WS.Bar..Pressure)]
+  Ubar <- dat[sub==TRUE & theta.filter==TRUE,mean(ws3)]
+  ws.sd <- dat[sub==TRUE & theta.filter==TRUE,sd(ws3)]
 
-  ep <- sqrt(1-(mean(sin(dat[[wd2_raw]]*pi/180))^2+mean(cos(dat[[wd2_raw]]*pi/180))^2))
-  wd_sd <- asin(ep)*(1 + (2/sqrt(3) - 1)*ep^3) * 180/pi # Yamartino Method
-  turbint <- dat[theta.filter==TRUE,sd(X3DS.W)]/Ubar
+  wd3.sd <- dat[sub==TRUE & theta.filter==TRUE,sd.wd3.yam(X3DS.Aziumth)]
+  wd2.sd <- dat[sub==TRUE & theta.filter==TRUE,sd.wd3.yam(WS.Wind.Direction)]
+  turbint <- dat[sub==TRUE&theta.filter==TRUE,sd(ws3w)]/Ubar
 
   # PGI from turbulence, turbint.breaks imported from data(pgsigma)
   PGturbi <- as.numeric(as.character((cut(turbint, turbint.breaks, labels=rev(seq(1,7,1))))))
-  # PGI from wd sd, wdsd.breaks imported from data(pgsigma)
-  PGstddevi <- as.numeric(as.character(cut(wd_sd, wdsd.breaks, labels=rev(seq(1,7,1)))))
+  # PGI from wd3_sd, wdsd.breaks imported from data(pgsigma)
+  PG.sd3 <- as.numeric(as.character(cut(wd3.sd, wdsd.breaks, labels=rev(seq(1,7,1)))))
+  PG.sd.2 <- as.numeric(as.character(cut(wd2.sd, wdsd.breaks, labels=rev(seq(1,7,1)))))
   # Calculate average PGI, round up if 0.5
-  PGI <- round((PGstddevi + PGturbi)/2 + 0.0001)
+  PGI <- round((PG.sd.3 + PGturbi)/2 + 0.0001)
   dist.int <- round(attr(dat,"distance"))
-
   # pgsigma imported from pgsigma.Rdata
   pgsigmay <- as.numeric(pgsigma[which(pgsigma$dist.int == dist.int &
                                         pgsigma$PGI == PGI), "sigmay"])
@@ -57,9 +57,20 @@ calcEmissionsRate <- function(dat,gauss.peak) {
   # Unit conversion constants
   rt1rp1 <- 298/1013.25; gasconst <- 8.314510; mw <- 16.04;
   rt0rp0 <- (gasconst*298)/101.325; opt <- (1e-06 * mw*1000)/rt0rp0;
-  # Convert gauss.peak to g/m3
-  a1_gperm3 <- gauss.peak*opt*rt1rp1*Pbar/Tbar
+  # Convert Ly.peak to g/m3
+  Ly.peak=attr(dat,"Ly.peak")
+  a1_gperm3 <- Ly.peak*opt*rt1rp1*Pbar/Tbar
   # Calculate PSG
-  PSG <- 2*pi*a1_gperm3*Ubar*pgsigmay*pgsigmaz
-  return(c(PSG=as.numeric(PSG),PGI=as.numeric(PGI),Ubar=as.numeric(Ubar)))
+  PSG <- as.numeric(2*pi*a1_gperm3*Ubar*pgsigmay*pgsigmaz)
+  setattr(dat,"PSG",PSG)
+  setattr(dat,"PGI",PGI)
+  setattr(dat,"PG.sd.3",PG.sd.3)
+  setattr(dat,"PG.sd,2",PG.sd.2)
+  setattr(dat,"PG.t",PGturbi)
+  setattr(dat,"Ubar",Ubar)
+  setattr(dat,"turbint",turbint)
+  setattr(dat,"pgsigmay",pgsigmay)
+  setattr(dat,"pgsigmaz",pgsigmaz)
+  setattr(dat,"PG.ti",PGturbi)
+  return(PSG)
 }

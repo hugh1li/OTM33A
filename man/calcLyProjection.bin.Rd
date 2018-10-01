@@ -4,7 +4,8 @@
 \alias{calcLyProjection.bin}
 \title{Calculate plume direction and spread using binned data and natural scale}
 \usage{
-calcLyProjection.bin(dat, wdfilt = 90, binwidth = 2, plot = TRUE)
+calcLyProjection.bin(dat, thetafilt = 90, binwidth = 2, min.n = 0,
+  plot = TRUE)
 }
 \arguments{
 \item{dat:}{Data table, with names obtained from GMAP data output as of 2018-Aug

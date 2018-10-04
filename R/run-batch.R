@@ -8,13 +8,13 @@
 #' @examples
 #' run.batch(dat)
 
-run.batch <- function(dat,wdfilt=60,binwidth=10) {
-  subtract.background(dat)
-  align.time(dat,4)
-  rotateWindDirection(dat)
-  fit1 <-  calcPSG.bin(dat,wdfilt=wdfilt,binwidth=binwidth)
-  fit2 <- calcLyProjection.bin(dat,wdfilt=wdfilt,binwidth=binwidth)
-  calcEmissionsRate(dat)
-  retval=fetch.results(dat)
-  return(retval)
+run.batch <- function(dat,wdfilt=60,binwidth=10,min.n=0.01) {
+  dat <- subtract.background(dat)
+  dat <- align.time(dat,4)
+  dat <- rotateWindDirection(dat)
+  dat <- calcPSG.bin(dat,wdfilt=wdfilt,binwidth=binwidth,min.n=min.n)
+  dat <- calcLyProjection.bin(dat,thetafilt=wdfilt,binwidth=binwidth,min.n=min.n)
+  dat <- calcEmissionsRate(dat)
+#  retval=fetch.results(dat)
+  return(dat)
 }

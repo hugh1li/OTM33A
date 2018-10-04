@@ -57,6 +57,6 @@ calcPSG.bin <- function(dat, binwidth=2, wdfilt=180, min.n=0, plot = TRUE) {
       ylab("CH4") + ggtitle(plot.title)
     print(fig1)
   }
-  return(wdfit)
+  return(dat)
 }
 

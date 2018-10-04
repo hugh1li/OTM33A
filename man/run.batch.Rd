@@ -4,7 +4,7 @@
 \alias{run.batch}
 \title{run batch files for a data set}
 \usage{
-run.batch(dat, wdfilt = 60, binwidth = 10)
+run.batch(dat, wdfilt = 60, binwidth = 10, min.n = 0.01)
 }
 \arguments{
 \item{dat:}{Data table, with names obtained from GMAP data output as of 2018-Aug}

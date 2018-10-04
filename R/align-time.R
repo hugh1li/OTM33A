@@ -23,5 +23,6 @@ align.time <- function(dat, delay) {
     dat[, sub := ifelse(is.na(CH4),FALSE,sub)]
     setattr(dat,"align.time",delay)
   }
+  dat
 }
 

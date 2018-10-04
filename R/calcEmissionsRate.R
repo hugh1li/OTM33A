@@ -36,14 +36,14 @@ calcEmissionsRate <- function(dat) {
   Ubar <- dat[sub==TRUE & theta.filter==TRUE,mean(ws3)]
   ws.sd <- dat[sub==TRUE & theta.filter==TRUE,sd(ws3)]
 
-  wd3.sd <- dat[sub==TRUE & theta.filter==TRUE,sd.wd3.yam(X3DS.Aziumth)]
-  wd2.sd <- dat[sub==TRUE & theta.filter==TRUE,sd.wd3.yam(WS.Wind.Direction)]
+  wd3.sd <- dat[sub==TRUE & theta.filter==TRUE,sd.wd.yam(X3DS.Azimuth)]
+  wd2.sd <- dat[sub==TRUE & theta.filter==TRUE,sd.wd.yam(WS.Wind.Direction)]
   turbint <- dat[sub==TRUE&theta.filter==TRUE,sd(ws3w)]/Ubar
 
   # PGI from turbulence, turbint.breaks imported from data(pgsigma)
   PGturbi <- as.numeric(as.character((cut(turbint, turbint.breaks, labels=rev(seq(1,7,1))))))
   # PGI from wd3_sd, wdsd.breaks imported from data(pgsigma)
-  PG.sd3 <- as.numeric(as.character(cut(wd3.sd, wdsd.breaks, labels=rev(seq(1,7,1)))))
+  PG.sd.3 <- as.numeric(as.character(cut(wd3.sd, wdsd.breaks, labels=rev(seq(1,7,1)))))
   PG.sd.2 <- as.numeric(as.character(cut(wd2.sd, wdsd.breaks, labels=rev(seq(1,7,1)))))
   # Calculate average PGI, round up if 0.5
   PGI <- round((PG.sd.3 + PGturbi)/2 + 0.0001)
@@ -58,19 +58,20 @@ calcEmissionsRate <- function(dat) {
   rt1rp1 <- 298/1013.25; gasconst <- 8.314510; mw <- 16.04;
   rt0rp0 <- (gasconst*298)/101.325; opt <- (1e-06 * mw*1000)/rt0rp0;
   # Convert Ly.peak to g/m3
-  Ly.peak=attr(dat,"Ly.peak")
-  a1_gperm3 <- Ly.peak*opt*rt1rp1*Pbar/Tbar
+  Ly.peak=as.numeric(attr(dat,"Ly.peak"))
+  Ly.peak.g.per.m3 <- Ly.peak*opt*rt1rp1*Pbar/Tbar
   # Calculate PSG
-  PSG <- as.numeric(2*pi*a1_gperm3*Ubar*pgsigmay*pgsigmaz)
-  setattr(dat,"PSG",PSG)
-  setattr(dat,"PGI",PGI)
-  setattr(dat,"PG.sd.3",PG.sd.3)
-  setattr(dat,"PG.sd,2",PG.sd.2)
-  setattr(dat,"PG.t",PGturbi)
-  setattr(dat,"Ubar",Ubar)
-  setattr(dat,"turbint",turbint)
-  setattr(dat,"pgsigmay",pgsigmay)
-  setattr(dat,"pgsigmaz",pgsigmaz)
-  setattr(dat,"PG.ti",PGturbi)
-  return(PSG)
+  PSG <- as.numeric(2*pi*Ly.peak.g.per.m3*Ubar*pgsigmay*pgsigmaz)
+  setattr(dat,"PSG",as.numeric(PSG))
+  setattr(dat,"PGI",as.numeric(PGI))
+  setattr(dat,"PG.sd.3",as.numeric(PG.sd.3))
+  setattr(dat,"PG.sd,2",as.numeric(PG.sd.2))
+  setattr(dat,"PG.t",as.numeric(PGturbi))
+  setattr(dat,"Ubar",as.numeric(Ubar))
+  setattr(dat,"turbint",as.numeric(turbint))
+  setattr(dat,"pgsigmay",as.numeric(pgsigmay))
+  setattr(dat,"pgsigmaz",as.numeric(pgsigmaz))
+  setattr(dat,"PG.ti",as.numeric(PGturbi))
+  setattr(dat,"Ly.peak.g.per.m3",as.numeric(Ly.peak.g.per.m3))
+  return(dat)
 }

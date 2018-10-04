@@ -56,7 +56,9 @@ evalDQI <- function(x,stats) {
   #PSG.bLs.High.DQI, IF(BY3/CG3>=2,1,""), PSG.Emission.Estimate/A1.bLs >= 2.1
   #PSG.bLs.Low.DQI, IF(BY3/CG3<=0.5,1,""), PSG.Emission.Estimate/A1.bLs < 0.5
   #PSG.Sigy.High.DQI, IF(BY3/BZ3>=2,1,""), PSG.Emission.Estimate/Sig.y.Emission.Estimate > 2
+  PSG.Sigy.High.DQI = ifelse(2*pgsigmay*pgsigmaz/sigma^2>2,1,0),
   #PSG.Sigy.Low.DQI, IF(BY3/BZ3<=0.5,1,""), PSG.Emission.Estimate/Sig.y.Emission.Estimate < 0.5
+  PSG.Sigy.Low.DQI = ifelse(2*pgsigmay*pgsigmaz/sigma^2<0.5,1,0),
   #Dist.DQI, IF(AND(G4>=25, G4<=150),"",1), Distance >= 25 & Distance < 150
   Dist.DQI = ifelse(distance >= 25 & distance < 150, 0, 1),
   #GPS.DQI, IF(AND(AB3<=0.000002, AD3<=0.000002),"",1), GPS.Latitude.StdDev < 0.000002 & GPS.Longitude.StdDev < 0.000002
@@ -66,8 +68,9 @@ evalDQI <- function(x,stats) {
   #CO2.Variance.DQI, IF(AF3<=10,"",1), Stdev.CO2 < 10
   CO2.Variance.DQI = ifelse(CO2.sd <= 10,0,1),
   #Temp.Comp.DQI, IF(ABS((1-BR3)*100)<=1,"",1), abs(1-Temp.QA)*100 < 1
-  Temp.Comp.DQI = ifelse(abs(1-temp.ratio) < 0.01, 0, 1)
+  Temp.Comp.DQI = ifelse(abs(1-temp.ratio) < 0.01, 0, 1),
   #3Dtemp.StdDev.DQI, IF(BS3<=1.1,"",1), 3Dtemp.stdev.QA < 1.1
+  Temp3D.StdDev.DQI = ifelse(temp.sd<1.1,0,1)
   )
   )
 }

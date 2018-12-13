@@ -4,15 +4,15 @@
 #' @return None, but has the side effect of adding column CH4 and attribute bg to dat
 #' @export
 #' @examples
-#' subtract.background(dat)
+#' dat = add.background(dat)
 
-subtract.background <- function(dat,Analyte="CH4") {
+add.background <- function(dat,Analyte="CH4") {
   bg.name = paste(Analyte,".bg",sep="")
-  if(is.null(attr(dat,bg.name))) {
+  bg = attr(dat,bg.name)
+  if(!is.null(bg)) {
     setnames(dat,Analyte,"Analyte")
-    bg <- dat[Analyte<quantile(Analyte,probs=.05)&sub==TRUE,mean(Analyte)]
-    dat[sub==TRUE,Analyte := Analyte - bg]
-    setattr(dat,bg.name,bg)
+    dat[sub==TRUE,Analyte := Analyte + bg]
+    setattr(dat,bg.name,NULL)
     setnames(dat,"Analyte",Analyte)
   }
   dat

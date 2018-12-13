@@ -2,21 +2,19 @@
 % Please edit documentation in R/calcEmissionsRate.R
 \name{calcEmissionsRate}
 \alias{calcEmissionsRate}
-\title{Calculate emissions rates from data.table and gaussian peak value estimated from calcLyProjection}
+\title{Calculate emissions rate for Analyte from data.table}
 \usage{
-calcEmissionsRate(dat)
+calcEmissionsRate(dat, Analyte = "CH4")
 }
 \arguments{
-\item{dat:}{Data table, with names obtained from GMAP data output as of 2018-Aug
-
-gauss.peak:  Peak of Gaussian fit from calcLyProjection}
+\item{dat:}{Data table, with names obtained from GMAP data output as of 2018-Aug}
 }
 \value{
-vector of length 3 containing information from emissions rate calculation
+data.table with attributes set containing emissions calculations
 }
 \description{
-Calculate emissions rates from data.table and gaussian peak value estimated from calcLyProjection
+Calculate emissions rate for Analyte from data.table
 }
 \examples{
-calcEmissionsRate(dat)
+dat = calcEmissionsRate(dat,Analyte="CH4")
 }

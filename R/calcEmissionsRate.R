@@ -1,77 +1,27 @@
-#' Calculate emissions rates from data.table and gaussian peak value estimated from calcLyProjection
+#' Calculate emissions rate for Analyte from data.table
 #' @param
 #' dat: Data table, with names obtained from GMAP data output as of 2018-Aug
 #'
-#' gauss.peak:  Peak of Gaussian fit from calcLyProjection
-#' @return vector of length 3 containing information from emissions rate calculation
+#' @return data.table with attributes set containing emissions calculations
 #' @export
 #' @examples
-#' calcEmissionsRate(dat)
+#' dat = calcEmissionsRate(dat,Analyte="CH4")
 
-calcEmissionsRate <- function(dat) {
-  # check to make sure that filter from calcLY is applied at this step
-  # Input:  dat:  data set,
-  #         gauss.peak:  gaussian value at plume center estimated by calcLyProjection
-  # Output:  calculated emissions in g/m^3
-
-  # Constants from Gryning et al 1983
-
-  # next statement imports psigma, turbint.breaks,wdsd.breaks
-  data("pgsigma")
-
-#  pgsigma=get(z[1])
-#  turbint.breaks=get(z[2])
-#  wdsd.breaks=get(z[3])
-
-#  return(pgsigma)
-
-  # To do:  figure out a better way to select appropriate columns from data table but still apply filter
-  # to do:  is it best to calculate values below using theta.filter?
-  # wd2_raw <- "X3DS.Azimuth"
-  # temperature <- "X3DS.Sonic.Temp"
-  # pressure <- "AirMar.Barometer..mBar."
-  # ws3w <- "X3DS.W"
-  Tbar <- dat[sub==TRUE & theta.filter==TRUE,mean(X3DS.Sonic.Temp)]+273.15
-  Pbar <- dat[sub==TRUE & theta.filter==TRUE,mean(WS.Bar..Pressure)]
-  Ubar <- dat[sub==TRUE & theta.filter==TRUE,mean(ws3)]
-  ws.sd <- dat[sub==TRUE & theta.filter==TRUE,sd(ws3)]
-
-  wd3.sd <- dat[sub==TRUE & theta.filter==TRUE,sd.wd.yam(X3DS.Azimuth)]
-  wd2.sd <- dat[sub==TRUE & theta.filter==TRUE,sd.wd.yam(WS.Wind.Direction)]
-  turbint <- dat[sub==TRUE&theta.filter==TRUE,sd(ws3w)]/Ubar
-
-  # PGI from turbulence, turbint.breaks imported from data(pgsigma)
-  PGturbi <- as.numeric(as.character((cut(turbint, turbint.breaks, labels=rev(seq(1,7,1))))))
-  # PGI from wd3_sd, wdsd.breaks imported from data(pgsigma)
-  PG.sd.3 <- as.numeric(as.character(cut(wd3.sd, wdsd.breaks, labels=rev(seq(1,7,1)))))
-  PG.sd.2 <- as.numeric(as.character(cut(wd2.sd, wdsd.breaks, labels=rev(seq(1,7,1)))))
-  # Calculate average PGI, round up if 0.5
-  PGI <- round((PG.sd.3 + PGturbi)/2 + 0.0001)
-  dist.int <- round(attr(dat,"distance"))
-  # pgsigma imported from pgsigma.Rdata
-  pgsigmay <- as.numeric(pgsigma[which(pgsigma$dist.int == dist.int &
-                                        pgsigma$PGI == PGI), "sigmay"])
-  pgsigmaz <- as.numeric(pgsigma[which(pgsigma$dist.int == dist.int &
-                                       pgsigma$PGI == PGI), "sigmaz"])
-
-  # Unit conversion constants
+calcEmissionsRate <- function(dat,Analyte="CH4") {
+  PGI = attr(dat,"PGI")
+  Ubar = attr(dat,"Ubar")
+  Pbar = attr(dat,"Pbar")
+  Tbar = attr(dat,"Tbar")
+  pgsigmay = attr(dat,"pgsigmay")
+  pgsigmaz = attr(dat,"pgsigmaz")
   rt1rp1 <- 298/1013.25; gasconst <- 8.314510; mw <- 16.04;
   rt0rp0 <- (gasconst*298)/101.325; opt <- (1e-06 * mw*1000)/rt0rp0;
   # Convert Ly.peak to g/m3
-  Ly.peak=as.numeric(attr(dat,"Ly.peak"))
+  Ly.peak=attr(dat,paste(Analyte,"Ly.peak",sep="."))
   Ly.peak.g.per.m3 <- Ly.peak*opt*rt1rp1*Pbar/Tbar
   # Calculate PSG
   PSG <- as.numeric(2*pi*Ly.peak.g.per.m3*Ubar*pgsigmay*pgsigmaz)
-  setattr(dat,"PSG",as.numeric(PSG))
-  setattr(dat,"PGI",as.numeric(PGI))
-  setattr(dat,"PG.sd.3",as.numeric(PG.sd.3))
-  setattr(dat,"PG.sd,2",as.numeric(PG.sd.2))
-  setattr(dat,"PG.t",as.numeric(PGturbi))
-  setattr(dat,"Ubar",as.numeric(Ubar))
-  setattr(dat,"turbint",as.numeric(turbint))
-  setattr(dat,"pgsigmay",as.numeric(pgsigmay))
-  setattr(dat,"pgsigmaz",as.numeric(pgsigmaz))
-  setattr(dat,"PG.ti",as.numeric(PGturbi))
-  setattr(dat,"Ly.peak.g.per.m3",as.numeric(Ly.peak.g.per.m3))
+  setattr(dat,paste(Analyte,"PSG",sep="."),as.numeric(PSG))
+  setattr(dat,paste(Analyte,"Ly.peak.g.per.m3",sep="."),as.numeric(Ly.peak.g.per.m3))
   return(dat)
 }
